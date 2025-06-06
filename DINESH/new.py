@@ -1,4 +1,9 @@
 # start 
+print(""" menu given below
+      a. for  the sum'
+      s. fot the subtract
+      m. for the multiply
+      d. for the division""")
 num1=int(input("enter first number:"))
 num2=int(input("enter your second number:"))
 choice=(input("enter your choice:"))
