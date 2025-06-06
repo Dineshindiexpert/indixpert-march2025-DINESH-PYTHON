@@ -1,18 +1,3 @@
-# num=int(input("       enter your number:"))
-# print()
-# if num%2==0:
-#     print(f"       {num}  is even number.")
-# else:
-#     print(f"       {num} is  odd number.")
-# print()
-# print("         thanks. !")
-print("""   menu given below
-      a. press for the sum
-      s. press for the subtract
-      m. press for the multiply
-      d. pesss for the division 
-      """)
-
 num1=int(input("enter first number:"))
 num2=int(input("enter your second number:"))
 choice=(input("enter your choice:"))
