@@ -1,15 +1,25 @@
-# studentdetails={"name":"dinesh","age":"18","father":"rihsipal","adress":"rohtak","state":"haryana",}
+id=int(input("enter your id:"))
+name=input("enter your name:")
+contact=input("enter your contact :")
+age=input("enter your age :")
+qualification=input("enter your qualification :")
+passingyear=input("enter passing year:")
+qualification2=input("enter qualification :")
+passingyear2=input("enter passing year:")
 
-# studentdetails.pop("state")
-# print(studentdetails)
-# for key,value in studentdetails.items():
-#     print(f"{key}={value}")
 
-# print(studentdetails.items())
-num1=int(input("enter your first number :"))
-num2=int(input("enter your second number :"))
-calculator={"sum":num1+num2,"subtract":num1-num2,"multipy":num1*num2,"divide":num1/num2}
-print("                                     HERE YOUR CALCULATOR")
-print("#"*150)
-for i,j in calculator.items():
-    print(f"#                                   {i} = {j}                                                ")
+student_data = [{
+    "id": id,},
+    {"name": name},
+    {"contact": contact},
+    {"age": age},
+    "qualifications": 
+
+        {"qualification": qualification}, {"passing_year": passingyear},
+        {"qualification": qualification2}, {"passing_year": passingyear2}
+    
+]
+# print(student_data)
+# data=input("abc:")                                   
+# print(data.zfill(10))
+# print(data)
