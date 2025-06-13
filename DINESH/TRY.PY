@@ -15,7 +15,7 @@ passing1=input("enter passing year:")
 qualification2=input("enter qualification:")
 passing2=input("enter passing year :")
 student=[{"id":id,"name":name,"contact":contact,"ADDRESS":address},{"id":id,"name":name,"contact":contact,"address":address},{"qualification":qualification1,"passing year":passing1,"qualification2":qualification2,"passing year ":passing2},{"qualification":qualification1,"passing year":passing1,"qualification2":qualification2,"passing year":passing2}]
-print("""                                              MENU
+print("""                                               MENU
                                                     1.PRESS FOR THE ID 
                                                     2. PRESS FOR THE QUALIFICATION """)
 while True:
