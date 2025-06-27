@@ -21,6 +21,6 @@ def domain():
             rp.report()
         else:
             print("invalid !")
-            break
+            
 
  
