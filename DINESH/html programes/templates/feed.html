@@ -1,0 +1,255 @@
+{% extends "base.html" %}
+
+{% block title %}Feed - Social Media App{% endblock %}
+
+{% block content %}
+<div class="row">
+    <!-- Main Feed Column -->
+    <div class="col-lg-8">
+        <!-- Create Post Section -->
+        <div class="card post-card mb-4">
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('create_post') }}" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <textarea class="form-control" name="content" rows="3" placeholder="What's on your mind?" required></textarea>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input type="file" class="form-control" name="image" accept="image/*">
+                        </div>
+                        <div class="col-md-6">
+                            <button type="submit" class="btn btn-primary w-100">
+                                <i class="fas fa-paper-plane"></i> Post
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Create Story Section -->
+        <div class="card post-card mb-4">
+            <div class="card-body">
+                <h6 class="card-title">
+                    <i class="fas fa-circle"></i> Create Story
+                </h6>
+                <form method="POST" action="{{ url_for('create_story') }}" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <textarea class="form-control" name="content" rows="2" placeholder="Add to your story..."></textarea>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input type="file" class="form-control" name="image" accept="image/*">
+                        </div>
+                        <div class="col-md-6">
+                            <button type="submit" class="btn btn-outline-primary w-100">
+                                <i class="fas fa-plus"></i> Add to Story
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Stories Section -->
+        {% if stories %}
+        <div class="card post-card mb-4">
+            <div class="card-body">
+                <h6 class="card-title mb-3">
+                    <i class="fas fa-circle"></i> Stories
+                </h6>
+                <div class="story-container">
+                    {% for story in stories %}
+                    <div class="story-item">
+                        <img src="{{ url_for('static', filename='uploads/' + story.image) if story.image else url_for('static', filename='uploads/default.jpg') }}" 
+                             class="story-avatar" alt="Story">
+                        <small class="d-block mt-1">{{ story.author.username }}</small>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Posts Feed -->
+        {% if posts %}
+            {% for post in posts %}
+            <div class="card post-card">
+                <div class="card-header bg-transparent">
+                    <div class="d-flex align-items-center">
+                        <img src="{{ url_for('static', filename='uploads/' + post.author.profile_picture) }}" 
+                             class="profile-picture me-3" alt="Profile">
+                        <div class="flex-grow-1">
+                            <h6 class="mb-0">
+                                <a href="{{ url_for('profile', username=post.author.username) }}" class="text-decoration-none">
+                                    {{ post.author.full_name }}
+                                </a>
+                            </h6>
+                            <small class="text-muted">@{{ post.author.username }} • {{ post.created_at.strftime('%B %d, %Y at %I:%M %p') }}</small>
+                        </div>
+                        <div class="dropdown">
+                            <button class="btn btn-sm btn-outline-secondary" type="button" data-bs-toggle="dropdown">
+                                <i class="fas fa-ellipsis-h"></i>
+                            </button>
+                            <ul class="dropdown-menu">
+                                {% if post.author.id == user.id %}
+                                <li><a class="dropdown-item" href="#"><i class="fas fa-edit"></i> Edit</a></li>
+                                <li><a class="dropdown-item" href="#"><i class="fas fa-trash"></i> Delete</a></li>
+                                {% else %}
+                                <li><a class="dropdown-item" href="#"><i class="fas fa-flag"></i> Report</a></li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card-body">
+                    {% if post.content %}
+                    <p class="card-text">{{ post.content }}</p>
+                    {% endif %}
+                    
+                    {% if post.image %}
+                    <img src="{{ url_for('static', filename='uploads/' + post.image) }}" class="post-image w-100" alt="Post image">
+                    {% endif %}
+                </div>
+                
+                <div class="card-footer bg-transparent">
+                    <div class="row">
+                        <div class="col-4">
+                            <button class="like-btn w-100" id="like-btn-{{ post.id }}" onclick="likePost({{ post.id }})">
+                                {% if post.id in [like.post_id for like in user.likes] %}
+                                <i class="fas fa-heart text-danger"></i>
+                                {% else %}
+                                <i class="far fa-heart"></i>
+                                {% endif %}
+                                <span id="like-count-{{ post.id }}">{{ post.likes|length }}</span>
+                            </button>
+                        </div>
+                        <div class="col-4">
+                            <button class="btn btn-outline-secondary w-100" data-bs-toggle="collapse" data-bs-target="#comments-{{ post.id }}">
+                                <i class="fas fa-comment"></i> {{ post.comments|length }}
+                            </button>
+                        </div>
+                        <div class="col-4">
+                            <a href="{{ url_for('call', username=post.author.username) }}" class="btn call-btn w-100">
+                                <i class="fas fa-phone"></i> Call
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Comments Section -->
+                    <div class="collapse mt-3" id="comments-{{ post.id }}">
+                        <div class="comment-section">
+                            {% for comment in post.comments %}
+                            <div class="d-flex mb-2">
+                                <img src="{{ url_for('static', filename='uploads/' + comment.author.profile_picture) }}" 
+                                     class="profile-picture me-2" style="width: 30px; height: 30px;" alt="Profile">
+                                <div class="flex-grow-1">
+                                    <strong>{{ comment.author.username }}</strong>
+                                    <span class="text-muted">{{ comment.content }}</span>
+                                    <br>
+                                    <small class="text-muted">{{ comment.created_at.strftime('%B %d, %Y') }}</small>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        
+                        <form method="POST" action="{{ url_for('comment_post', post_id=post.id) }}" class="mt-3">
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="content" placeholder="Write a comment..." required>
+                                <button class="btn btn-outline-primary" type="submit">
+                                    <i class="fas fa-paper-plane"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+        <div class="card post-card">
+            <div class="card-body text-center">
+                <i class="fas fa-newspaper fa-3x text-muted mb-3"></i>
+                <h5>No posts yet</h5>
+                <p class="text-muted">Follow some users to see their posts in your feed!</p>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Sidebar -->
+    <div class="col-lg-4">
+        <!-- User Profile Card -->
+        <div class="card post-card mb-4">
+            <div class="card-body text-center">
+                <img src="{{ url_for('static', filename='uploads/' + user.profile_picture) }}" 
+                     class="rounded-circle mb-3" style="width: 80px; height: 80px; object-fit: cover;" alt="Profile">
+                <h5>{{ user.full_name }}</h5>
+                <p class="text-muted">@{{ user.username }}</p>
+                {% if user.bio %}
+                <p class="text-muted">{{ user.bio }}</p>
+                {% endif %}
+                <div class="row text-center">
+                    <div class="col-4">
+                        <strong>{{ user.posts|length }}</strong>
+                        <br>
+                        <small class="text-muted">Posts</small>
+                    </div>
+                    <div class="col-4">
+                        <strong>{{ user.followers|length }}</strong>
+                        <br>
+                        <small class="text-muted">Followers</small>
+                    </div>
+                    <div class="col-4">
+                        <strong>{{ user.following|length }}</strong>
+                        <br>
+                        <small class="text-muted">Following</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="card post-card mb-4">
+            <div class="card-body">
+                <h6 class="card-title">Quick Actions</h6>
+                <div class="d-grid gap-2">
+                    <a href="{{ url_for('settings') }}" class="btn btn-outline-primary">
+                        <i class="fas fa-cog"></i> Settings
+                    </a>
+                    <a href="{{ url_for('follow_requests') }}" class="btn btn-outline-secondary">
+                        <i class="fas fa-user-plus"></i> Follow Requests
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Suggested Users -->
+        <div class="card post-card">
+            <div class="card-body">
+                <h6 class="card-title">Suggested Users</h6>
+                {% set suggested_users = [] %}
+                {% for u in User.query.all() %}
+                    {% if u.id != user.id and not is_following(user.id, u.id) %}
+                        {% set _ = suggested_users.append(u) %}
+                    {% endif %}
+                {% endfor %}
+                
+                {% for suggested_user in suggested_users[:5] %}
+                <div class="d-flex align-items-center mb-3">
+                    <img src="{{ url_for('static', filename='uploads/' + suggested_user.profile_picture) }}" 
+                         class="profile-picture me-3" alt="Profile">
+                    <div class="flex-grow-1">
+                        <h6 class="mb-0">{{ suggested_user.full_name }}</h6>
+                        <small class="text-muted">@{{ suggested_user.username }}</small>
+                    </div>
+                    <button class="btn btn-sm btn-primary" onclick="followUser({{ suggested_user.id }})" id="follow-btn-{{ suggested_user.id }}">
+                        Follow
+                    </button>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

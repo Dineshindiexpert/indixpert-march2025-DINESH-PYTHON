@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+
+{% block title %}{{ profile_user.full_name }} - Social Media App{% endblock %}
+
+{% block content %}
+<div class="row">
+    <!-- Profile Header -->
+    <div class="col-12">
+        <div class="card post-card mb-4">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-md-3 text-center">
+                        <img src="{{ url_for('static', filename='uploads/' + profile_user.profile_picture) }}" 
+                             class="rounded-circle mb-3" style="width: 120px; height: 120px; object-fit: cover;" alt="Profile">
+                    </div>
+                    <div class="col-md-6">
+                        <h3>{{ profile_user.full_name }}</h3>
+                        <p class="text-muted">@{{ profile_user.username }}</p>
+                        {% if profile_user.bio %}
+                        <p>{{ profile_user.bio }}</p>
+                        {% endif %}
+                        
+                        <div class="row text-center mb-3">
+                            <div class="col-4">
+                                <strong>{{ profile_user.posts|length }}</strong>
+                                <br>
+                                <small class="text-muted">Posts</small>
+                            </div>
+                            <div class="col-4">
+                                <strong>{{ profile_user.followers|length }}</strong>
+                                <br>
+                                <small class="text-muted">Followers</small>
+                            </div>
+                            <div class="col-4">
+                                <strong>{{ profile_user.following|length }}</strong>
+                                <br>
+                                <small class="text-muted">Following</small>
+                            </div>
+                        </div>
+                        
+                        {% if profile_user.is_private %}
+                        <span class="badge bg-warning">
+                            <i class="fas fa-lock"></i> Private Account
+                        </span>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-3 text-end">
+                        {% if current_user.id != profile_user.id %}
+                            {% if follow_status == 'accepted' %}
+                                <button class="btn btn-secondary" onclick="followUser({{ profile_user.id }})" id="follow-btn-{{ profile_user.id }}">
+                                    <i class="fas fa-user-minus"></i> Unfollow
+                                </button>
+                            {% elif follow_status == 'pending' %}
+                                <button class="btn btn-warning" disabled id="follow-btn-{{ profile_user.id }}">
+                                    <i class="fas fa-clock"></i> Request Sent
+                                </button>
+                            {% else %}
+                                <button class="btn btn-primary" onclick="followUser({{ profile_user.id }})" id="follow-btn-{{ profile_user.id }}">
+                                    <i class="fas fa-user-plus"></i> Follow
+                                </button>
+                            {% endif %}
+                            
+                            <a href="{{ url_for('call', username=profile_user.username) }}" class="btn call-btn mt-2">
+                                <i class="fas fa-phone"></i> Call
+                            </a>
+                        {% else %}
+                            <a href="{{ url_for('settings') }}" class="btn btn-outline-primary">
+                                <i class="fas fa-edit"></i> Edit Profile
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Posts Section -->
+    <div class="col-12">
+        <div class="card post-card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-images"></i> Posts
+                </h5>
+            </div>
+            <div class="card-body">
+                {% if posts %}
+                    <div class="row">
+                        {% for post in posts %}
+                        <div class="col-md-6 col-lg-4 mb-4">
+                            <div class="card h-100">
+                                {% if post.image %}
+                                <img src="{{ url_for('static', filename='uploads/' + post.image) }}" 
+                                     class="card-img-top" style="height: 200px; object-fit: cover;" alt="Post image">
+                                {% endif %}
+                                <div class="card-body">
+                                    {% if post.content %}
+                                    <p class="card-text">{{ post.content[:100] }}{% if post.content|length > 100 %}...{% endif %}</p>
+                                    {% endif %}
+                                    <small class="text-muted">{{ post.created_at.strftime('%B %d, %Y') }}</small>
+                                </div>
+                                <div class="card-footer bg-transparent">
+                                    <div class="row text-center">
+                                        <div class="col-4">
+                                            <small class="text-muted">
+                                                <i class="fas fa-heart text-danger"></i> {{ post.likes|length }}
+                                            </small>
+                                        </div>
+                                        <div class="col-4">
+                                            <small class="text-muted">
+                                                <i class="fas fa-comment"></i> {{ post.comments|length }}
+                                            </small>
+                                        </div>
+                                        <div class="col-4">
+                                            <small class="text-muted">
+                                                <i class="fas fa-share"></i> Share
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="text-center py-5">
+                        <i class="fas fa-images fa-3x text-muted mb-3"></i>
+                        <h5>No posts yet</h5>
+                        {% if current_user.id == profile_user.id %}
+                        <p class="text-muted">Start sharing your thoughts and photos!</p>
+                        <a href="{{ url_for('feed') }}" class="btn btn-primary">
+                            <i class="fas fa-plus"></i> Create Your First Post
+                        </a>
+                        {% else %}
+                        <p class="text-muted">This user hasn't posted anything yet.</p>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 
