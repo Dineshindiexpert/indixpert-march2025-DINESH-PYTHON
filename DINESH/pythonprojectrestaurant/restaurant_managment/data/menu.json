@@ -1,0 +1,80 @@
+[
+    {
+        "item_id": 1,
+        "name": "Idli Sambar",
+        "price": 40,
+        "category": "breakfast"
+    },
+    {
+        "item_id": 2,
+        "name": "Masala Dosa",
+        "price": 50,
+        "category": "breakfast"
+    },
+    {
+        "item_id": 3,
+        "name": "Veg Thali",
+        "price": 120,
+        "category": "lunch"
+    },
+    {
+        "item_id": 4,
+        "name": "Paneer Butter Masala",
+        "price": 180,
+        "category": "lunch"
+    },
+    {
+        "item_id": 5,
+        "name": "Chicken Biryani",
+        "price": 200,
+        "category": "dinner"
+    },
+    {
+        "item_id": 6,
+        "name": "Tandoori Roti",
+        "price": 20,
+        "category": "dinner"
+    },
+    {
+        "item_id": 7,
+        "name": "Samosa",
+        "price": 15,
+        "category": "snacks"
+    },
+    {
+        "item_id": 8,
+        "name": "Veg Sandwich",
+        "price": 30,
+        "category": "snacks"
+    },
+    {
+        "item_id": 9,
+        "name": "Chef's Special Pasta",
+        "price": 150,
+        "category": "special"
+    },
+    {
+        "item_id": 10,
+        "name": "Special Dessert",
+        "price": 90,
+        "category": "special"
+    },
+    {
+        "item_id": 11,
+        "name": "Mineral Water",
+        "price": 20,
+        "category": "other"
+    },
+    {
+        "item_id": 12,
+        "name": "Cold Drink",
+        "price": 35,
+        "category": "other"
+    },
+    {
+        "item_id": 13,
+        "name": "burger",
+        "price": 50.0,
+        "category": "other"
+    }
+]

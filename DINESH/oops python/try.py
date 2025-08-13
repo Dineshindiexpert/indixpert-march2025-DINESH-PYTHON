@@ -1,16 +1,17 @@
 class full:
     def __init__(self):
-        self.__id=100
-        self._name="dinesh"
-        self.age=18
+        print("account holder : dinesh")
+        print("account balance:")
+        self.__account=50
+        print(self.__account)
+       
+        self.__deposite=int(input("eneter new balance:"))
+        self.final=int(self.__account)+int(self.__deposite)
     def read(self):
-        print("id purani:", self.__id)
+        print("account holder:")
+        print("new account :", self.final)
 data=full()
-data.__id=101
-data._name="ajay"
-data.age=20
-print(data.__id)
-print(data._name)
-print(data.age)
+
+ 
 
 data.read()

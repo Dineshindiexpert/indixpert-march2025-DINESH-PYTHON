@@ -1,0 +1,70 @@
+[
+    {
+        "order_id": 1,
+        "table_number": 5,
+        "items": [
+            1,
+            7,
+            11
+        ],
+        "total": 75,
+        "status": "completed"
+    },
+    {
+        "order_id": 2,
+        "table_number": 2,
+        "items": [
+            3,
+            8,
+            12
+        ],
+        "total": 185,
+        "status": "pending"
+    },
+    {
+        "order_id": 3,
+        "table_number": 3,
+        "items": [
+            3
+        ],
+        "total": 120,
+        "status": "pending",
+        "paid": true,
+        "payment_method": "UPI"
+    },
+    {
+        "order_id": 4,
+        "table_number": 3,
+        "items": [
+            6,
+            6,
+            12
+        ],
+        "total": 75,
+        "status": "pending",
+        "paid": true,
+        "payment_method": "Cash"
+    },
+    {
+        "order_id": 5,
+        "table_number": 4,
+        "items": [
+            6,
+            6,
+            6,
+            6,
+            6,
+            6,
+            6,
+            6,
+            6,
+            6,
+            6,
+            6
+        ],
+        "total": 240,
+        "status": "pending",
+        "paid": true,
+        "payment_method": "Credit Card"
+    }
+]
