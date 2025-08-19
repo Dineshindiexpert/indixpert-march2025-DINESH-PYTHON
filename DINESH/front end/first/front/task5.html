@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration Form</title>
+</head>
+<body>
+    <h1>User Registration Form</h1>
+
+    <form method="get" action="#">
+
+        <div>
+            <label for="fullName">Full Name:</label>
+            <input type="text" id="fullName" name="fullName" required minlength="3" maxlength="50">
+            <br><br>
+        </div>
+
+        <div> 
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required pattern="[A-Za-z0-9]+" minlength="5" maxlength="15">
+            <br><br>
+        </div> 
+
+        <div> 
+            <label for="email">Email Address:</label>
+            <input type="email" id="email" name="email" required>
+            <br><br>
+        </div> 
+
+         <div> 
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required minlength="6" maxlength="20">
+            <br><br>
+        </div> 
+
+        <div> 
+            <label for="confirmPassword">Confirm Password:</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" required minlength="6" maxlength="20">
+            <br><br>
+        </div> 
+
+        <div> 
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" name="phone" required pattern="\d{10}">
+            <br><br>
+        </div> 
+
+        <div>  
+            <label>Gender:</label>
+            <input type="radio" id="male" name="gender" value="Male" required>
+            <label for="male">Male</label>
+            <input type="radio" id="female" name="gender" value="Female" required>
+            <label for="female">Female</label>
+            <input type="radio" id="other" name="gender" value="Other" required>
+            <label for="other">Other</label>
+            <br><br>
+        </div> 
+
+        <div> 
+            <label for="dob">Date of Birth:</label>
+            <input type="date" id="dob" name="dob" required>
+            <br><br>
+        </div> 
+
+        <div>  
+            <label for="age">Age:</label>
+            <input type="number" id="age" name="age" required min="18" max="60">
+            <br><br>
+        </div> 
+
+        <div> 
+            <label for="country">Country:</label>
+            <select id="country" name="country" required>
+                <option value="India">India</option>
+                <option value="USA">USA</option>
+                <option value="UK">UK</option>
+                <option value="Canada">Canada</option>
+                <option value="Other">Other</option>
+            </select>
+            <br><br>
+        </div> 
+
+        <div> 
+            <label>Skills:</label>
+            <input type="checkbox" id="html" name="skills" value="HTML">
+            <label for="html">HTML</label>
+            <input type="checkbox" id="css" name="skills" value="CSS">
+            <label for="css">CSS</label>
+            <input type="checkbox" id="js" name="skills" value="JavaScript">
+            <label for="js">JavaScript</label>
+            <input type="checkbox" id="react" name="skills" value="React">
+            <label for="react">React</label>
+            <input type="checkbox" id="node" name="skills" value="other">
+            <label for="node">bn </label>
+            <br><br>
+        </div> 
+
+        <div> 
+            <label for="website">Website (optional):</label>
+            <input type="url" id="website" name="website">
+            <br><br>
+        </div> 
+
+        <div>  
+            <label for="profilePicture">Profile Picture:</label>
+            <input type="file" id="profilePicture" name="profilePicture" accept=".jpg,.png">
+            <br><br>
+        </div> 
+
+        <div>  
+            <label for="about">About Yourself (max 200 characters):</label>
+            <textarea id="about" name="about" maxlength="200"></textarea>
+            <br><br>
+        </div> 
+
+        <div> 
+        <input type="submit" value="Submit">
+        <input type="reset" value="Reset">
+        </div> 
+
+    </form>
+</body>
+</html>
