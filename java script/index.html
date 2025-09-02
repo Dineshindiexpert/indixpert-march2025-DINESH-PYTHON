@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Birthday Surprise</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+    }
+    .screen {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+    }
+    .pink {
+      background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+      color: #d63384;
+      font-size: 2.5rem;
+    }
+    .black {
+      background: black;
+      color: white;
+    }
+    .hidden { display: none; }
+    .fireworks {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: black;
+      overflow: hidden;
+      z-index: -1;
+    }
+    canvas { position: absolute; top: 0; left: 0; }
+    .gift-box {
+      width: 150px;
+      height: 150px;
+      background: #ff4444;
+      position: relative;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    .gift-box::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 50%;
+      width: 20px; height: 100%;
+      background: gold;
+      transform: translateX(-50%);
+    }
+    .gift-box::after {
+      content: "";
+      position: absolute;
+      top: 50%; left: 0;
+      width: 100%; height: 20px;
+      background: gold;
+      transform: translateY(-50%);
+    }
+    .slideshow img {
+      max-width: 80vw;
+      max-height: 60vh;
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(255,255,255,0.8);
+    }
+    .message {
+      max-width: 80%;
+      font-size: 1.5rem;
+      line-height: 1.8rem;
+      white-space: pre-wrap;
+      margin-top: 20px;
+    }
+    .btn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 1.2rem;
+      background: #ff69b4;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Screen 1: Pink Greeting -->
+  <div id="screen1" class="screen pink">
+    <h1>🌸 Good Morning Pglu 🌸</h1>
+    <h2>🎂 Happy Birthday 🎂</h2>
+  </div>
+
+  <!-- Screen 2: Fireworks + Nobita -->
+  <div id="screen2" class="screen black hidden">
+    <div class="fireworks"><canvas id="canvas"></canvas></div>
+    <h2>💖 Look who's here! 💖</h2>
+    <img src="https://i.pinimg.com/originals/6d/c6/5b/6dc65b4ab33b119f4a90b1c3e3f6c8d8.png" 
+         alt="Nobita Hi" width="200">
+  </div>
+
+  <!-- Screen 3: Gift Box -->
+  <div id="screen3" class="screen black hidden">
+    <h2>🎁 A Gift For You 🎁</h2>
+    <div class="gift-box" id="gift"></div>
+  </div>
+
+  <!-- Screen 4: Slideshow -->
+  <div id="screen4" class="screen black hidden">
+    <div class="slideshow">
+      <img id="slide" src="" alt="Memory">
+    </div>
+  </div>
+
+  <!-- Screen 5: Message -->
+  <div id="screen5" class="screen black hidden">
+    <div class="message" id="msg"></div>
+    <button class="btn hidden" id="nextBtn">Aage Badhein ➝</button>
+  </div>
+
+  <!-- Screen 6: Final -->
+  <div id="screen6" class="screen black hidden">
+    <div class="fireworks"><canvas id="canvas2"></canvas></div>
+    <h1>✨ Enjoy Your Moment ✨</h1>
+  </div>
+
+  <audio id="bgm" autoplay loop>
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    const slides = [
+      "https://i.pinimg.com/originals/7a/2e/39/7a2e39cbb8a55b5a62ad3d1f1e4d7dcb.jpg",
+      "https://i.pinimg.com/originals/58/0e/50/580e50794090f26fbec6bb5c917f651d.jpg"
+    ];
+    const message = `💌 My Dear Princess 💌
+
+Tum meri life ki sabse pyari dost ho. 
+Aaj tumhara din hai, aur mai chahta hu ki tumhara har ek pal khubsurat bane. 
+Tumhari smile meri duniya roshan karti hai. 
+Tum meri duniya ho aur meri dua hai ki tumhe har khushi mile. ❤️
+
+~ Always Yours, Nobita`;
+
+    function show(id) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.add('hidden'));
+      document.getElementById(id).classList.remove('hidden');
+    }
+
+    setTimeout(() => show("screen2"), 3000);
+    setTimeout(() => show("screen3"), 6000);
+
+    document.getElementById("gift").onclick = () => {
+      show("screen4");
+      let i=0;
+      const slideImg=document.getElementById("slide");
+      slideImg.src=slides[i];
+      const interval=setInterval(()=>{
+        i++;
+        if(i>=slides.length){
+          clearInterval(interval);
+          setTimeout(()=> show("screen5"),2000);
+        } else {
+          slideImg.src=slides[i];
+        }
+      },3000);
+    };
+
+    function typeWriter(text, i=0) {
+      if(i < text.length){
+        document.getElementById("msg").innerHTML += text.charAt(i);
+        setTimeout(()=>typeWriter(text,i+1),50);
+      } else {
+        document.getElementById("nextBtn").classList.remove("hidden");
+      }
+    }
+    document.getElementById("screen5").addEventListener("transitionstart", ()=>{
+      document.getElementById("msg").innerHTML="";
+      typeWriter(message);
+    });
+
+    document.getElementById("nextBtn").onclick = ()=>show("screen6");
+
+    // Fireworks simple effect
+    function startFireworks(canvasId){
+      const canvas=document.getElementById(canvasId);
+      const ctx=canvas.getContext("2d");
+      canvas.width=window.innerWidth;
+      canvas.height=window.innerHeight;
+      let particles=[];
+      function createFirework(){
+        const x=Math.random()*canvas.width;
+        const y=Math.random()*canvas.height/2;
+        for(let i=0;i<100;i++){
+          particles.push({x,y,vx:Math.cos(i)*Math.random()*3,vy:Math.sin(i)*Math.random()*3,alpha:1});
+        }
+      }
+      function draw(){
+        ctx.fillStyle="rgba(0,0,0,0.2)";
+        ctx.fillRect(0,0,canvas.width,canvas.height);
+        particles.forEach((p,i)=>{
+          ctx.fillStyle=`rgba(255,${Math.random()*255},${Math.random()*255},${p.alpha})`;
+          ctx.fillRect(p.x,p.y,2,2);
+          p.x+=p.vx;
+          p.y+=p.vy;
+          p.alpha-=0.01;
+          if(p.alpha<=0) particles.splice(i,1);
+        });
+        requestAnimationFrame(draw);
+      }
+      setInterval(createFirework,800);
+      draw();
+    }
+    startFireworks("canvas");
+    startFireworks("canvas2");
+  </script>
+</body>
+</html>
