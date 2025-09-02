@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Special Surprise</title>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Poppins',sans-serif;overflow:hidden;}
+.screen{display:none;width:100%;height:100vh;justify-content:center;align-items:center;flex-direction:column;text-align:center;padding:20px;}
+
+/* Start Screen */
+#start{display:flex;background:linear-gradient(135deg,#ffdde1,#ee9ca7);color:#fff;}
+#start h1{font-size:3em;animation:fadeIn 2s ease-in-out;}
+#start img{margin-top:20px;width:200px;border-radius:20px;box-shadow:0 0 20px rgba(0,0,0,0.3);}
+#start button{margin-top:30px;padding:10px 20px;border:none;background:#ff4081;color:white;font-size:1.2em;border-radius:10px;cursor:pointer;}
+
+/* Shayari Screen */
+#shayari{background:linear-gradient(135deg,#a18cd1,#fbc2eb);color:white;font-size:1.5em;line-height:1.6;position:relative;}
+.shayari-line{display:none;margin:15px 0;font-style:italic;}
+#shayari button{margin-top:20px;padding:10px 20px;background:#6a11cb;color:#fff;border:none;border-radius:10px;cursor:pointer;}
+
+/* Gift Screen */
+#gift{background:#ffe0f7;flex-direction:column;}
+.gift-box{width:150px;height:150px;background:#ff4081;position:relative;border-radius:10px;cursor:pointer;animation:bounce 1s infinite alternate;}
+.gift-box::before{content:'';width:160px;height:30px;background:#d81b60;position:absolute;top:-30px;left:-5px;border-radius:10px;}
+#gift p{margin-top:20px;font-size:1.3em;color:#d81b60;}
+
+/* Slideshow */
+#slideshow{background:black;position:relative;}
+#slideshow img{max-height:80vh;display:none;margin:auto;border-radius:20px;box-shadow:0 0 30px rgba(255,255,255,0.6);}
+
+/* Diary Page */
+#diary{background:linear-gradient(135deg,#ffe6f0,#fff0f5);display:flex;justify-content:center;align-items:center;font-family:'Dancing Script',cursive;overflow:hidden;}
+.diary-container{background:#fff0f5cc;padding:50px 40px;border-radius:25px;box-shadow:0 10px 25px rgba(255,64,129,0.4);max-width:700px;width:90%;text-align:left;position:relative;}
+.diary-text{font-size:1.6em;font-style:italic;color:#d81b60;line-height:2;max-height:70vh;overflow-y:auto;white-space:pre-wrap;}
+.diary-buttons{margin-top:20px;display:flex;justify-content:space-between;}
+.diary-buttons button{padding:12px 25px;border:none;background:#ff4081;color:white;font-size:1.2em;border-radius:15px;cursor:pointer;transition:transform 0.2s,box-shadow 0.2s;display:none;}
+.diary-buttons button:hover{transform:scale(1.05);box-shadow:0 5px 15px rgba(255,64,129,0.5);}
+
+/* Floating Hearts */
+.heart{position:absolute;width:15px;height:15px;background:#ff4081;transform:rotate(-45deg);animation:floatHeart 4s linear infinite;}
+.heart::before,.heart::after{content:"";position:absolute;width:15px;height:15px;background:#ff4081;border-radius:50%;}
+.heart::before{top:-7.5px;left:0;}
+.heart::after{top:0;left:7.5px;}
+@keyframes floatHeart{0%{transform:translateY(0) rotate(-45deg);opacity:1;}100%{transform:translateY(-200px) rotate(-45deg);opacity:0;}}
+
+/* Final Screen */
+#final{background:black;color:white;font-size:2.5em;display:flex;flex-direction:column;justify-content:center;align-items:center;}
+
+/* Animations */
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+@keyframes bounce{from{transform:translateY(0);}to{transform:translateY(-15px);}}
+.firework{position:absolute;width:5px;height:5px;background:transparent;border-radius:50%;animation:explode 1.5s ease-out forwards;}
+@keyframes explode{0%{transform:scale(1);opacity:1;}100%{transform:scale(20);opacity:0;}}
+</style>
+</head>
+<body>
+
+<!-- Background Music -->
+<audio id="bgMusic" src="song.mp3" loop></audio>
+
+<!-- Start Screen -->
+<div id="start" class="screen">
+  <h1>....Good Morning Pglu....</h1>
+  <img src="nobita and suzuka 1.jpeg" alt="Nobita">
+  <button onclick="startSurprise()">Aage chle</button>
+</div>
+
+<!-- Shayari Screen -->
+<div id="shayari" class="screen">
+  <div id="shayariLines">
+    <p class="shayari-line">Happy wala birthday special for you </p>
+    <p class="shayari-line">sfr akele to nhi ktne denge chaiye muskile kitni bhi aajai..</p>
+    <p class="shayari-line">ab wada kia hai to kyu na nibhaye </p>
+    <p class="shayari-line">ab birthday aya hai to party kaise bhul jai.. 😂</p>
+    <p class="shayari-line">TO ab jldi si clg m bhi aa jai 😂 </p>
+    <p class="shayari-line">✨ Happy Birthday mere dost ! </p>
+    
+  </div>
+  <button id="toGift" style="display:none;" onclick="nextScreen('gift')">Aage Badhein ➝</button>
+</div>
+
+<!-- Gift Screen -->
+<div id="gift" class="screen">
+  <div class="gift-box" onclick="openGift()"></div>
+  <p id="giftText">Please Open It 🎁</p>
+</div>
+
+<!-- Slideshow -->
+<div id="slideshow" class="screen">
+  <img src="nobita and suzuka 1.jpeg" alt="pic1">
+  <img src="nobita and suzuka 2.jpeg" alt="pic2">
+  <img src="promise nobita and suzuka.jpeg" alt="pic3">
+  <img src="2.jpeg" alt="">
+  <img src="3.jpeg" alt="">
+  <img src="4.jpeg" alt="">
+  <img src="5.jpeg" alt="">
+  <img src="6.jpeg" alt="">
+  <img src="9.jpeg" alt="">
+  <img src="10.jpeg" alt="">
+  <img src="22.jpeg" alt="">
+  <img src="onlysuzuka.jpeg" alt="">
+  <img src="promise nobita and suzuka.jpeg" alt="">
+  <img src="school 1.jpeg" alt="">
+  <img src="to gift nobita.jpeg" alt="">
+  <img src="nobita nand suzuka.jpeg" alt="">
+  <img src="birthday imgaes.jpeg" alt="">
+</div>
+
+<!-- Diary Page -->
+<div id="diary" class="screen">
+  <div class="diary-container">
+    <div class="diary-text" id="diaryText"></div>
+    <div class="diary-buttons">
+      <button id="prevPage">Previous</button>
+      <button id="nextPage">Next ➝</button>
+    </div>
+  </div>
+</div>
+
+<!-- Final Screen -->
+<div id="final" class="screen">
+  <h1>✨ Enjoy this day. ✨</h1>
+  <h1>aaj ka din sirf tera hai.</h1>
+  <h1>AGAIN HAAPY BIRTHDAY Pglu</h1>
+</div>
+
+<script>
+let current = "start";
+document.getElementById(current).style.display="flex";
+
+// Start button: play music + go next
+function startSurprise() {
+  const music = document.getElementById("bgMusic");
+  music.play().catch(()=>console.log("Autoplay blocked"));
+  nextScreen('shayari');
+}
+
+// Screen navigation
+function nextScreen(id){
+  document.getElementById(current).style.display="none";
+  document.getElementById(id).style.display="flex";
+  current=id;
+  if(id==="shayari") showShayari();
+  if(id==="slideshow") startSlideshow();
+  if(id==="diary") startDiary();
+}
+
+// Shayari typing
+function showShayari(){
+  const lines=document.querySelectorAll(".shayari-line");
+  let i=0;
+  function showLine(){
+    if(i<lines.length){ lines[i].style.display="block"; i++; setTimeout(showLine,2000);}
+    else{ document.getElementById("toGift").style.display="inline-block"; }
+  }
+  showLine();
+}
+
+// Gift open → slideshow
+function openGift(){
+  document.getElementById("giftText").innerText="🎉 Surprise 🎉";
+  setTimeout(()=>{ nextScreen("slideshow"); },2000);
+}
+
+// Slideshow
+function startSlideshow(){
+  const slides=document.querySelectorAll("#slideshow img");
+  let i=0;
+  slides[i].style.display="block";
+  const interval=setInterval(()=>{
+    slides[i].style.display="none";
+    i++;
+    if(i>=slides.length){ clearInterval(interval); nextScreen("diary"); return; }
+    slides[i].style.display="block";
+    launchFirework();
+  },3000);
+}
+
+// Fireworks
+function launchFirework(){
+  const slideshow=document.getElementById("slideshow");
+  for(let i=0;i<10;i++){
+    const f=document.createElement("div");
+    f.className="firework";
+    f.style.left=Math.random()*window.innerWidth+"px";
+    f.style.top=Math.random()*window.innerHeight+"px";
+    f.style.background=`hsl(${Math.random()*360},100%,50%)`;
+    slideshow.appendChild(f);
+    setTimeout(()=>f.remove(),1500);
+  }
+}
+
+// Diary pages typing
+const diaryPages = [
+   "HAPPY BIRTHDAY SPECIAL WALA...",
+   "HM TO KAISE HO UMID HAI THODA BHOT TO ACHA HI LGA HOGA. WO MUJE ETNA HI SMJ AAYA TO YHI BNA DIYA AB BHI AAP THARE BUSY PERSON TO TIME TO HAI NHI TO SOCHA YHI BNA DE AAP K LIYE.",
+   "OR SUNA SBSE PHLE TO AGAIN HAAPY WALA BIRTHDAY FOR SPECIAL WAAALI WISHES MERI TRF SE..",
+   "HM TO PDAI KAISE CHL RHI HAA PTA HAI AAJ TO PDNA NHI AAPKO KYUKI AAJ APKA BIRTHDAY HAI TO ENJOY KRO",
+   "TO ABKI BAR HM NHI HONGE WAISE HUA TO KBHI BHI NHI HUN.",
+   "KHA SURAT KRU KHNA TO PTA PTA NHI KYA KYA HAI PR ABHI NHI.",
+   " HA PTA HAI BOLE GYI KI ESKA ABHI NHI KB AAYE GA..😄 AYE GA NO TNSN BCHU DIN BHI AAYGA WO KHTE HAI NA KI SHJ PKE SO MIHTA HOE TO. ",
+   "TO MERI YE CHOTI SI KOSIS THI. UMID HAI PSND AAYA HOGA JADA NHI TO THODA HI SHI.",
+   "HA PTA HAI BOLE GYI KI ESKI KYA JRURAT THI TO BTA DU KUCH BHI FREE NHI HOTA PGLU RETURN CHAIYE TUJSE WAISE BHI BHOT PHLE KA HISAAB OR TAX PDA HAI TERE P TO SB CHUKTA KRNA HAI TO YE BHI BILL M ADD KR LE 😄.",
+   "OR BDLE MUEJ AK BS TU SUCCESS HOJA SB CHUKTA HO JAI GA 😄. OK ",
+   "TO THIK ABHI K LIYE ETAN HI OR BAAKI KBHI MOKA LGA TO JRUR KRE GYE. OK .",
+   "OR HAA 18+ BHI MUBARK HO FINALLY TU HO HI GYI 18 KI AB NHI KH SKTE KI NABALIK AB BDI HO GYI TU .. 😄",
+   "OK BY BY ENJOY YOUR DAY..",
+   "....AGAIN...",
+   "HAPPY WALA BIRTHDAY MERI PGLU."
+
+];
+let currentPage = 0;
+let typingIndex = 0;
+let typingInterval;
+
+function startDiary(){
+  showPage(currentPage);
+  document.getElementById("prevPage").style.display="none";
+  document.getElementById("nextPage").style.display="none";
+}
+
+function showPage(page){
+  const textContainer=document.getElementById("diaryText");
+  const prevBtn=document.getElementById("prevPage");
+  const nextBtn=document.getElementById("nextPage");
+  textContainer.innerHTML="";
+  typingIndex=0;
+  clearInterval(typingInterval);
+
+  typingInterval = setInterval(()=>{
+    if(typingIndex<diaryPages[page].length){
+      textContainer.innerHTML += diaryPages[page].charAt(typingIndex);
+      typingIndex++;
+    } else {
+      clearInterval(typingInterval);
+      nextBtn.style.display = "inline-block";
+      prevBtn.style.display = (page>0) ? "inline-block" : "none";
+    }
+  },50);
+}
+
+document.getElementById("nextPage").onclick = ()=>{
+  if(currentPage < diaryPages.length-1){
+    currentPage++;
+    document.getElementById("nextPage").style.display="none";
+    showPage(currentPage);
+  } else {
+    nextScreen("final");
+  }
+};
+
+document.getElementById("prevPage").onclick = ()=>{
+  if(currentPage>0){
+    currentPage--;
+    document.getElementById("nextPage").style.display="none";
+    showPage(currentPage);
+  }
+};
+
+// Floating hearts
+const diary=document.getElementById("diary");
+setInterval(()=>{
+  const h=document.createElement("div");
+  h.className="heart";
+  h.style.left=Math.random()*diary.offsetWidth+"px";
+  diary.querySelector(".diary-container").appendChild(h);
+  setTimeout(()=>h.remove(),4000);
+},800);
+</script>
+
+</body>
+</html>
