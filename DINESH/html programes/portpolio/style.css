@@ -1,0 +1,28 @@
+body {
+    background-color: rgb(228, 79, 123); /* background pinkish tone */
+}
+
+div {
+    margin-left: 10;
+    height: 500px;
+    width: 750px;
+    background-color: white; /* inner box white */
+    text-align: center;
+    color: rgb(224, 8, 37); /* text red tone */
+    font-weight: 300;
+    font-size: xx-large;
+    margin-trim: rgb(17, 17, 143);
+}
+#container{
+
+
+    border-style: solid;          /* border visible banane ke liye */
+    border-color: rgb(230, 17, 81); 
+    border-width: 10px;           /* 50px bahut zyada tha, 10px better */
+    border-radius: 20px;          /* thoda rounded edges (optional) */
+
+
+p{
+    color: red
+    line-height: 0;
+}s

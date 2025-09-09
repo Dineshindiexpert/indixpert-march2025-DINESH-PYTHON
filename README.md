@@ -1,1 +1,0 @@
-# indixpert-march2025-DINESH-PYTHON

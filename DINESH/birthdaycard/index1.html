@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Special Surprise</title>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  font-family:'Dancing Script', cursive;
+  overflow:hidden; 
+  background: linear-gradient(135deg,#ffe6f0,#fff0f5);
+  min-height:100vh;
+  color:#d81b60;
+  display:flex; justify-content:center; align-items:center;
+}
+.screen{display:none;width:100%;height:100vh;justify-content:center;align-items:center;flex-direction:column;text-align:center;padding:20px; opacity:0; transition:opacity 0.8s;}
+.screen.active{display:flex; opacity:1;}
+.diary-container{background:#fff0f5cc;padding:30px;border-radius:25px;box-shadow:0 10px 25px rgba(255,64,129,0.4);max-width:500px;width:90%;text-align:center;position:relative;}
+button{padding:10px 20px;border:none;background:#ff4081;color:white;font-size:1em;border-radius:15px;cursor:pointer;margin-top:10px;}
+button:hover{transform:scale(1.05);}
+.shake{animation:shake 0.4s;}
+@keyframes shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-10px);}50%{transform:translateX(10px);}75%{transform:translateX(-5px);}}
+.messages div{margin:5px 0;padding:5px 8px;border-radius:10px;}
+.userMsg{background:#ff80ab;color:white;text-align:right;}
+.friendMsg{background:#d81b60;color:white;text-align:left;}
+.gift-box{width:150px;height:150px;background:#ff4081;position:relative;border-radius:10px;cursor:pointer;margin-bottom:10px;}
+.gift-box::before{content:'';width:160px;height:30px;background:#d81b60;position:absolute;top:-30px;left:-5px;border-radius:10px;}
+.diary-text{font-size:1.2em;font-style:italic;color:#d81b60;line-height:1.8;padding:15px;border-radius:15px;background: repeating-linear-gradient(to bottom,#fff9fc,#fff9fc 32px,#ffd6eb 33px);white-space: pre-wrap;min-height:180px; text-align:left;}
+.cursor{display:inline-block;width:6px;background:#d81b60;animation:blink 0.8s infinite;}
+@keyframes blink{0%,50%{opacity:1;}51%,100%{opacity:0;}}
+.heart{position: fixed; bottom:0; width:20px; height:20px; background-size:cover; pointer-events:none; animation:rise 6s linear forwards; z-index:999;}
+@keyframes rise{0%{transform:translateY(0) scale(1); opacity:1;}100%{transform:translateY(-120vh) scale(0.5); opacity:0;}}
+@media screen and (max-width:480px){
+  #messages { height:200px; font-size:0.9em; }
+  #chatInput { font-size:0.9em; padding:8px; }
+  #sendBtn { padding:8px 15px; font-size:0.9em; }
+  .diary-container h2 { font-size:1.3em; }
+}
+
+</style>
+</head>
+<body>
+
+<audio id="bgMusic" src="mahi.mp3" loop></audio>
+
+<!-- Password Screen -->
+<div id="passwordScreen" class="screen active">
+  <div class="diary-container" id="passwordBox">
+    <h2>📖 Dear princess..</h2>
+    <p>Enter password here ❤️</p>
+    <input type="password" id="diaryPassword" placeholder="Enter Password...">
+    <br>
+    <button onclick="checkPassword()">OK </button>
+    <p id="errorMsg" style="display:none;">❌ Wrong password, kya yaar bhul gyi tu </p>
+  </div>
+</div>
+
+<!-- Choice Screen -->
+<div id="choiceScreen" class="screen">
+  <h2>✨ Choose something special ✨</h2>
+  <button onclick="showScreen('chatScreen')">💌 Chat</button>
+  <button onclick="showScreen('giftScreen')">🎁 Gift</button>
+</div>
+
+<!-- Chat Screen -->
+<div id="chatScreen" class="screen">
+  <div class="diary-container" style="max-width:95%;width:100%;padding:15px;">
+    <h2 style="font-size:1.5em;margin-bottom:10px;">💬 writes your feelings..</h2>
+    <div id="messages" style="height:250px;overflow-y:auto;padding:10px;border:2px solid #ff80ab;border-radius:15px;background:linear-gradient(145deg,#fff0f5,#ffe6f0); display:flex; flex-direction:column; gap:8px;"></div>
+    <div style="display:flex; gap:8px; margin-top:10px; flex-wrap:wrap;">
+      <input type="text" id="chatInput" placeholder="Type your message..." style="flex:1; min-width:120px;padding:10px;border:2px solid #ff80ab;border-radius:20px;outline:none;font-size:1em;">
+      <button id="sendBtn" style="padding:10px 20px;border-radius:20px;flex-shrink:0;">Send</button>
+    </div>
+    <button onclick="showScreen('choiceScreen')" style="margin-top:10px;padding:8px 15px;border-radius:15px;">⬅ Back</button>
+  </div>
+</div>
+
+
+
+<!-- Gift Screen -->
+<div id="giftScreen" class="screen">
+  <div class="gift-box" onclick="openGift()"></div>
+  <p id="giftText">Please Open It 🎁</p>
+</div>
+
+<!-- Start Screen -->
+<div id="start" class="screen">
+  <h1>Good Morning Pglu.</h1>
+  <img src="nobita and suzuka 1.jpeg" alt="Nobita" style="max-width:80%;border-radius:15px;margin-bottom:10px;">
+  <button onclick="nextScreen('shayari')">Aage chle</button>
+</div>
+
+<!-- Shayari Screen -->
+<div id="shayari" class="screen">
+  <div id="shayariLines">
+    <p class="shayari-line">Happy wala birthday special for you </p>
+    <p class="shayari-line">sfr akele to nhi ktne denge...</p>
+    <p class="shayari-line">ab wada kia hai to kyu na nibhaye </p>
+    <p class="shayari-line">ab birthday aya hai to party kaise bhul jai.. 😂</p>
+    <p class="shayari-line">TO ab jldi si clg m bhi aa jai 😂 </p>
+    <p class="shayari-line">✨ Happy Birthday mere dost ! ✨ </p>
+  </div>
+  <button id="toGift" style="display:none;" onclick="nextScreen('giftScreen')">Aage Badhein ➝</button>
+</div>
+
+<!-- Diary Screen -->
+<div id="diary" class="screen">
+  <div class="diary-container">
+    <div class="diary-text" id="diaryText"></div>
+    <div class="controls">
+      <button id="prevBtn">⬅ Previous</button>
+      <button id="nextBtn">Next ➡</button>
+    </div>
+  </div>
+</div>
+
+<!-- Final Screen -->
+<div id="final" class="screen">
+  <h1>✨ Enjoy this day. ✨</h1>
+  <h1>aaj ka din sirf tera hai.</h1>
+  <h1>AGAIN HAPPY BIRTHDAY Pglu</h1>
+</div>
+
+<script>
+let current = "passwordScreen";
+const correctPassword = "pglu";
+const music = document.getElementById("bgMusic");
+
+// Screen switching
+function showScreen(id){
+  document.getElementById(current).classList.remove('active');
+  document.getElementById(id).classList.add('active');
+  current = id;
+}
+
+// Password check
+function checkPassword(){
+  const input = document.getElementById("diaryPassword").value;
+  const box = document.getElementById("passwordBox");
+  if(input === correctPassword){
+    document.getElementById("errorMsg").style.display = "none";
+    showScreen("choiceScreen");
+    music.play().catch(()=>console.log("Autoplay blocked"));
+  } else {
+    document.getElementById("errorMsg").style.display="block";
+    box.classList.add("shake");
+    setTimeout(()=>box.classList.remove("shake"),400);
+  }
+}
+
+const messagesDiv = document.getElementById("messages");
+const chatInput = document.getElementById("chatInput");
+const sendBtn = document.getElementById("sendBtn");
+
+function addMessage(text, type){
+  const msg = document.createElement("div");
+  msg.innerText = text;
+  msg.style.padding = "8px 12px";
+  msg.style.borderRadius = "15px";
+  msg.style.maxWidth = "70%";
+  msg.style.wordWrap = "break-word";
+  msg.style.boxShadow = "0 3px 10px rgba(0,0,0,0.1)";
+  msg.style.alignSelf = type === "user" ? "flex-end" : "flex-start";
+  msg.style.background = type === "user" 
+      ? "linear-gradient(135deg,#ff80ab,#ff4081)" 
+      : "linear-gradient(135deg,#ffe6f0,#d81b60)";
+  msg.style.color = "#fff";
+  messagesDiv.appendChild(msg);
+  messagesDiv.scrollTop = messagesDiv.scrollHeight;
+}
+
+// Send message
+function sendMessage(){
+  const text = chatInput.value.trim();
+  if(!text) return;
+  addMessage(text,"user");
+  chatInput.value = "";
+  
+  // Auto-reply after delay
+  setTimeout(()=> addMessage("🎉 " + text + " 🎉","friend"), 800);
+}
+
+// Send on Enter key
+chatInput.addEventListener("keypress",(e)=>{
+  if(e.key==="Enter") sendMessage();
+});
+
+sendBtn.addEventListener("click",sendMessage);
+
+// Initial greeting
+addMessage("Hi princess! 💖 Start chatting here.","friend");
+
+// Gift opening
+function openGift(){
+  document.getElementById("giftText").innerText = "🎉 Surprise 🎉";
+  setTimeout(()=>showScreen("start"),2000);
+}
+
+// Next screens
+function nextScreen(id){
+  showScreen(id);
+  if(id==="shayari") showShayari();
+  if(id==="diary") startDiary();
+}
+
+// Shayari effect
+function showShayari(){
+  const lines=document.querySelectorAll(".shayari-line");
+  let i=0;
+  function showLine(){
+    if(i<lines.length){
+      lines[i].style.display="block"; i++;
+      setTimeout(showLine,2000);
+    } else {
+      document.getElementById("toGift").style.display="inline-block";
+    }
+  }
+  showLine();
+}
+
+// Diary pages
+const pages = [
+`💖 Happy birthday meri pglu.💖 ...`,
+`Or suna kya haal chaal ...`,
+`Enjoy this moment ...`,
+`Again happy birthday birthday girl...`
+];
+let currentPage=0;
+const diaryText=document.getElementById("diaryText");
+const prevBtn=document.getElementById("prevBtn");
+const nextBtn=document.getElementById("nextBtn");
+
+function typeWriter(text,callback){
+  diaryText.innerHTML=""; let i=0;
+  const cursor=document.createElement("span"); cursor.classList.add("cursor"); diaryText.appendChild(cursor);
+  function typing(){
+    if(i<text.length){ cursor.insertAdjacentText("beforebegin",text.charAt(i)); i++; setTimeout(typing,50);}
+    else if(callback) callback();
+  }
+  typing();
+}
+
+function showPage(index){ typeWriter(pages[index]); prevBtn.disabled=index===0; nextBtn.disabled=index===pages.length-1; }
+prevBtn.addEventListener("click",()=>{ if(currentPage>0){ currentPage--; showPage(currentPage); }});
+nextBtn.addEventListener("click",()=>{ if(currentPage<pages.length-1){ currentPage++; showPage(currentPage); }});
+function startDiary(){ showPage(currentPage); launchHearts(); }
+
+// Floating hearts
+const heartImages=["https://cdn-icons-png.flaticon.com/512/833/833472.png","https://cdn-icons-png.flaticon.com/512/2107/2107845.png","https://cdn-icons-png.flaticon.com/512/1077/1077086.png"];
+function launchHearts(){ setInterval(()=>{ 
+  const heart=document.createElement("div"); 
+  heart.className="heart"; 
+  heart.style.left=Math.random()*window.innerWidth+"px"; 
+  heart.style.bottom="0px"; 
+  const size=Math.random()*20+15; 
+  heart.style.width=size+"px"; 
+  heart.style.height=size+"px"; 
+  const img=heartImages[Math.floor(Math.random()*heartImages.length)]; 
+  heart.style.backgroundImage=`url(${img})`; 
+  document.body.appendChild(heart); 
+  setTimeout(()=>heart.remove(),6000); 
+},250);}
+</script>
+
+</body>
+</html>

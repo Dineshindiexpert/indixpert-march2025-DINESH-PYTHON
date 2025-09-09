@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Special Surprise</title>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;700&display=swap" rel="stylesheet" />
+<style>
+/* Global reset */
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  font-family:'Dancing Script', cursive;
+  overflow-x:hidden; 
+  background: linear-gradient(135deg,#ffe6f0,#fff0f5);
+  display:flex; justify-content:center; align-items:center; 
+  min-height:100vh;
+  color:#d81b60;
+}
+
+/* Screen container */
+.screen{
+  display:none;
+  width:100%;
+  min-height:100vh;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  text-align:center;
+  padding:20px;
+  opacity:0;
+  transition:opacity 0.8s;
+}
+.screen.active{display:flex; opacity:1;}
+
+/* Password screen */
+#passwordScreen .diary-container{
+  background:#fff0f5cc;
+  padding:30px 20px;
+  border-radius:25px;
+  box-shadow:0 10px 25px rgba(255,64,129,0.4);
+  max-width:400px;
+  width:90%;
+  text-align:center;
+}
+#passwordScreen h2{font-size:1.8em;margin-bottom:15px;}
+#passwordScreen p{font-style:italic;margin-bottom:15px;}
+#passwordScreen input{
+  padding:12px 15px;width:80%;border-radius:12px;border:1px solid #ff80ab;font-size:1em;outline:none;margin-bottom:15px;
+}
+#passwordScreen button{
+  padding:12px 30px;border:none;background:#ff4081;color:white;font-size:1em;border-radius:15px;cursor:pointer;transition:transform 0.2s;
+}
+#passwordScreen button:hover{transform:scale(1.05);}
+#errorMsg{color:red;margin-top:10px;display:none;}
+.shake{animation:shake 0.4s;}
+@keyframes shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-10px);}50%{transform:translateX(10px);}75%{transform:translateX(-5px);}}
+
+/* Chat screen */
+#chatScreen .diary-container{
+  max-width:95%;
+  width:100%;
+  padding:15px;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+#messages{
+  min-height:200px;
+  max-height:300px;
+  overflow-y:auto;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  padding:10px;
+  border:2px solid #ff80ab;
+  border-radius:15px;
+  background:linear-gradient(145deg,#fff0f5,#ffe6f0);
+}
+#chatInput{
+  flex:1;
+  padding:10px;
+  border-radius:20px;
+  border:2px solid #ff80ab;
+  outline:none;
+  font-size:1em;
+  min-width:120px;
+}
+#sendBtn{
+  padding:10px 20px;
+  border-radius:20px;
+  border:none;
+  background:#ff4081;
+  color:white;
+  cursor:pointer;
+}
+#sendBtn:hover{transform:scale(1.05);transition:0.2s;}
+@media screen and (max-width:480px){
+  #messages { max-height:200px; font-size:0.9em; }
+  #chatInput, #sendBtn { font-size:0.9em; padding:8px; }
+  #passwordScreen h2 { font-size:1.5em; }
+}
+
+/* Shayari and gift text styling */
+.shayari-line{display:none; font-size:1.2em; margin:8px 0; color:#d81b60;}
+#giftText{font-size:1.2em; margin-top:15px; color:#d81b60;}
+
+/* Slideshow styling */
+#slideshow img, #slideshow video{display:none; max-width:95%; border-radius:15px; margin-bottom:10px;}
+
+/* Puzzle styling */
+.game-container{display:flex;gap:10px; flex-wrap:wrap; justify-content:center;}
+.puzzle-board{display:grid; grid-template-columns:repeat(2,150px); grid-template-rows:repeat(2,150px); gap:5px;}
+.dropzone{width:150px; height:150px; border:2px dashed #ff80ab; border-radius:10px; display:flex; justify-content:center; align-items:center;}
+.side-pieces{display:flex; flex-wrap:wrap; gap:5px; margin-top:10px;}
+.piece{width:150px; height:150px; background-size:300px 300px; cursor:grab; border-radius:10px;}
+.correctZone{border-color:#4caf50;}
+.wrongZone{border-color:red;}
+.shake{animation:shake 0.3s;}
+
+/* Diary styling */
+.diary-container .diary-text{min-height:150px; padding:15px; border:2px solid #ff80ab; border-radius:12px; margin-bottom:10px; background:linear-gradient(145deg,#fff0f5,#ffe6f0);}
+.controls{display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;}
+.controls button{padding:8px 15px;border-radius:15px;border:none;background:#ff4081;color:white; cursor:pointer;}
+.controls button:hover{transform:scale(1.05);transition:0.2s;}
+</style>
+</head>
+<body>
+
+<audio id="bgMusic" src="mahi.mp3" loop></audio>
+
+<!-- Password Screen -->
+<div id="passwordScreen" class="screen active">
+  <div class="diary-container" id="passwordBox">
+    <h2>📖 Dear princess..</h2>
+    <p>Enter password here ❤️</p>
+    <input type="password" id="diaryPassword" placeholder="Enter Password...">
+    <br>
+    <button id="passwordBtn">OK </button>
+    <p id="errorMsg">❌ Wrong password, kya yaar bhul gyi tu </p>
+  </div>
+</div>
+
+<!-- Choice Screen -->
+<div id="choiceScreen" class="screen">
+  <h2>✨ Choose something special ✨</h2>
+  <div style="display:flex;gap:15px;flex-wrap:wrap;margin-top:20px;">
+    <button onclick="showScreen('chatScreen')">💌 Chat</button>
+    <button onclick="showScreen('gift')">🎁 Gift</button>
+  </div>
+</div>
+
+<!-- Chat Screen -->
+<div id="chatScreen" class="screen">
+  <div class="diary-container">
+    <h2>💬 Write your feelings..</h2>
+    <div id="messages"></div>
+    <div style="display:flex; gap:8px; margin-top:10px; flex-wrap:wrap;">
+      <input type="text" id="chatInput" placeholder="Type your message...">
+      <button id="sendBtn">Send</button>
+    </div>
+    <button onclick="showScreen('choiceScreen')">⬅ Back</button>
+  </div>
+</div>
+
+<!-- Gift Screen -->
+<div id="gift" class="screen">
+  <div class="gift-box" onclick="openGift()" style="width:150px;height:150px;background:#ff4081;border-radius:20px;margin-bottom:15px;cursor:pointer;"></div>
+  <p id="giftText">Please Open It 🎁</p>
+  <button onclick="showScreen('choiceScreen')">⬅ Back</button>
+</div>
+
+<script>
+let current="passwordScreen";
+const correctPassword="pglu";
+const music=document.getElementById("bgMusic");
+
+// Password
+function checkPassword(){
+  const input=document.getElementById("diaryPassword").value;
+  const box=document.getElementById("passwordBox");
+  if(input===correctPassword){
+    showScreen("choiceScreen");
+    music.play().catch(()=>console.log("Autoplay blocked"));
+  } else{
+    document.getElementById("errorMsg").style.display="block";
+    box.classList.add("shake");
+    setTimeout(()=>box.classList.remove("shake"),400);
+  }
+}
+
+// Show any screen
+function showScreen(id){
+  document.getElementById(current).classList.remove("active");
+  document.getElementById(id).classList.add("active");
+  current=id;
+  if(id==="chatScreen") setupChat();
+}
+
+// Setup Chat
+function setupChat(){
+  const messagesDiv=document.getElementById("messages");
+  const chatInput=document.getElementById("chatInput");
+  const sendBtn=document.getElementById("sendBtn");
+  messagesDiv.innerHTML="";
+  addMessage("Hi princess! 💖 Start chatting here.","friend");
+
+  function addMessage(text,type){
+    const msg=document.createElement("div");
+    msg.innerText=text;
+    msg.style.padding="8px 12px";
+    msg.style.borderRadius="15px";
+    msg.style.maxWidth="70%";
+    msg.style.wordWrap="break-word";
+    msg.style.boxShadow="0 3px 10px rgba(0,0,0,0.1)";
+    msg.style.alignSelf=type==="user"?"flex-end":"flex-start";
+    msg.style.background=type==="user"
+      ?"linear-gradient(135deg,#ff80ab,#ff4081)"
+      :"linear-gradient(135deg,#ffe6f0,#d81b60)";
+    msg.style.color="#fff";
+    messagesDiv.appendChild(msg);
+    messagesDiv.scrollTop=messagesDiv.scrollHeight;
+  }
+
+  function sendMessage(){
+    const text=chatInput.value.trim();
+    if(!text) return;
+    addMessage(text,"user");
+    chatInput.value="";
+    setTimeout(()=>addMessage("🎉 "+text+" 🎉","friend"),800);
+  }
+
+  sendBtn.onclick=sendMessage;
+  chatInput.onkeypress=e=>{if(e.key==="Enter") sendMessage();}
+}
+
+// Gift open
+function openGift(){
+  document.getElementById("giftText").innerText="🎉 Surprise 🎉";
+}
+  
+// Event listeners
+document.getElementById("passwordBtn").addEventListener("click",checkPassword);
+document.getElementById("diaryPassword").addEventListener("keypress",e=>{if(e.key==="Enter") checkPassword();});
+</script>
+</body>
+</html>
