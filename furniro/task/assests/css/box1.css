@@ -1,0 +1,38 @@
+
+.box-modle {
+    width: 400px;
+    height: 400px;
+    background-color: rgb(248, 248, 248);
+    border-radius: 5%;
+    display: flex;               
+    align-items: center;
+    justify-content: center;
+    margin: 20px auto;           
+}
+
+
+.box-modle-1 {
+    width: 300px;
+    height: 300px;
+    border: 2px solid rgb(104, 103, 103);     
+    border-radius: 5%;
+    background-color: rgb(248, 248, 248);
+    text-align: center;             
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-family: inter;
+    
+}
+
+button{
+    
+    padding-top: 10px;
+    background-color: rgb(160, 97, 68); 
+    color: whitesmoke; 
+    text-align: center;
+    width: 220px; 
+    height: 50px;
+    border-radius: 5%;
+}
+

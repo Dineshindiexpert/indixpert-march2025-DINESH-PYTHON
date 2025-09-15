@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Custom List</title>
+  <style>
+    body {
+        background: linear-gradient(rgb(190, 190, 223),rgb(125, 187, 238));
+    }
+
+    .custom-list {
+      list-style: none;  
+      padding: 0;
+    }
+
+    .custom-list li {
+      margin: 8px 0;
+      padding-left: 2em;  
+      position: relative;
+    }
+
+    .custom-list li::before {
+      content: " ";  
+      position: absolute;
+      left: 0;
+      top: 2px;
+      width: 16px;    
+      height: 16px;
+      border-radius: 50%;
+      background-image: url("./../images/finaltick.jpg"); 
+      background-size: cover;  
+      background-repeat: no-repeat;
+      
+    }
+  </style>
+</head>
+<body>
+  <h2>My Custom Image List</h2>
+  <ul class="custom-list">
+    <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis qui esse consectetur eum beatae, optio provident debitis culpa ipsa, illo sint sunt voluptatibus perferendis molestiae totam perspiciatis? Iste, facilis nesciunt?</li>
+    <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis qui esse consectetur eum beatae, optio provident debitis culpa ipsa, illo sint sunt voluptatibus perferendis molestiae totam perspiciatis? Iste, facilis nesciunt?</li>
+    <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis qui esse consectetur eum beatae, optio provident debitis culpa ipsa, illo sint sunt voluptatibus perferendis molestiae totam perspiciatis? Iste, facilis nesciunt?</li>
+    <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis qui esse consectetur eum beatae, optio provident debitis culpa ipsa, illo sint sunt voluptatibus perferendis molestiae totam perspiciatis? Iste, facilis nesciunt?</li>
+    <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis qui esse consectetur eum beatae, optio provident debitis culpa ipsa, illo sint sunt voluptatibus perferendis molestiae totam perspiciatis? Iste, facilis nesciunt?</li>
+    <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis qui esse consectetur eum beatae, optio provident debitis culpa ipsa, illo sint sunt voluptatibus perferendis molestiae totam perspiciatis? Iste, facilis nesciunt?</li>
+    <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis qui esse consectetur eum beatae, optio provident debitis culpa ipsa, illo sint sunt voluptatibus perferendis molestiae totam perspiciatis? Iste, facilis nesciunt?</li>
+    <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis qui esse consectetur eum beatae, optio provident debitis culpa ipsa, illo sint sunt voluptatibus perferendis molestiae totam perspiciatis? Iste, facilis nesciunt?</li>
+    <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis qui esse consectetur eum beatae, optio provident debitis culpa ipsa, illo sint sunt voluptatibus perferendis molestiae totam perspiciatis? Iste, facilis nesciunt?</li>
+     
+  </ul>
+</body>
+</html>

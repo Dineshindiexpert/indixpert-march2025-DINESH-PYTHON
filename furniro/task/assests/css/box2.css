@@ -1,0 +1,40 @@
+.box-modle {
+    width: 400px;
+    height: 400px;
+    background-color: rgb(248, 248, 248);
+    border-radius: 5%;
+    display: flex;                  
+    align-items: center;           
+    justify-content: center;       
+    margin: 20px auto;           
+}
+
+
+.box-modle-2 {
+    width: 300px;
+    height: 300px;
+    border: 2px solid rgb(104, 103, 103);     
+    border-radius: 5%;
+    background-image: url(./../images/bg-image.png);
+    background-size: cover;
+    background-position: center;
+    text-align: center;             
+    font-weight: 600;
+    padding: 15px;
+    font-family: inter;
+}
+
+
+button {
+    margin-top: 20px;
+    background-color: rgb(160, 97, 68); 
+    color: whitesmoke; 
+    text-align: center;
+    width: 220px; 
+    height: 50px;
+    border: none;
+    border-radius: 5%;
+    font-size: larger;
+    cursor: pointer;
+    margin-top: 0px;
+}
