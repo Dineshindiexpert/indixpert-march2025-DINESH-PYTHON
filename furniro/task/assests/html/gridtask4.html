@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>grid and flex</title>
+    <style>
+        /* Grid for card layout */
+        .d-flex {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 20px;
+            padding: 20px;
+        }
+
+        
+        .d-flex > div {
+            display: flex;
+            flex-direction:column;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background: #f9f9f9;
+            height: 200px;
+            aspect-ratio: 1/1;
+        }
+
+        /* Image sizing */
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        
+        .information1  {
+            margin: 2px 0;
+            font-size: 14px;
+            display:flex;flex-direction: row;gap: 20px;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="d-flex">
+            <div class="card1">
+                <img src="../images/redballon.jpg" alt="Red Balloon">
+                <div class="information1">
+                    <p>Balloon</p>
+                    <p>Red</p>
+                    <p>Sky</p>
+                    <p>Blue</p>
+                    <p>Hot air balloon</p>
+                </div>
+            </div>
+            <div class="card2">
+                <img src="../images/manyballon.jpg" alt="Many Balloons">
+            </div>
+            <div class="card3">
+                <img src="../images/skyballon.jpg" alt="Sky Balloons">
+            </div>
+            <div class="card4">
+                <img src="../images/bigballon.jpg" alt="Big Balloon">
+            </div>
+        </div>
+    </main>
+</body>
+</html>

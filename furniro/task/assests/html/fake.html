@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flex Layout Example</title>
+  <style>
+    body {
+      margin: 0;
+      box-sizing: border-box;
+    }
+
+    .main-container {
+      display: flex;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    
+    .sidebar {
+      width: 15%;
+      background: #000;
+      color: #fff;
+      padding: 10px;
+    }
+
+    
+    .content {
+      flex: 1;
+      background: #f8f8f8;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    
+    .banner {
+      background: #ddd;
+      height: 150px;
+      border-radius: 6px;
+    }
+
+    
+    .three-boxes {
+      display: flex;
+      gap: 10px;
+      background-color: rgb(174, 169, 169);
+      width: 50%;
+      height: 200PX;
+      justify-content: center;
+      padding: 20PX;
+    }
+    .three-boxes .box {
+      flex: 1;
+      background: #ddd;
+      height: 200px;
+       
+    }
+
+     
+    .two-one {
+      display: flex;
+      gap: 20px;
+    }
+    .two-left {
+      flex: 2;
+      display: flex;
+      gap: 20px;
+    }
+    .two-left .box {
+      flex: 1;
+      background: #ddd;
+      height: 120px;
+      border-radius: 6px;
+    }
+    .one-right {
+      flex: 1;
+      background: #ddd;
+      border-radius: 6px;
+    }
+
+     
+    .footer-row {
+      display: flex;
+      gap: 20px;
+      background-color: rgb(39, 94, 142);
+      justify-content: center;
+      padding: 20px;
+      height: 200px;
+      object-fit: contain;
+    }
+    .footer-row .box {
+      flex: 1;
+      background: #ddd;
+      height: 100px;
+      border-radius: 6px;
+    }
+    .vertically-box{
+        height :100%;
+        flex-direction: row;
+        display:flex;
+        justify-content: center;
+        gap: 20px;
+        width: 100%;
+    }
+    .v-box{
+        
+        width: 500px;
+        background-color:#f8f8f8;
+        border: 2px solid rgb(120, 120, 120);
+        height: 500px;
+    }
+.boxes-container{display: flex;flex-direction: row;justify-content: space-between;padding-right: 10px;border-radius: 2px;
+    }
+.v-box-1{background: #848080;height: 50%;width: 100%;}
+    
+.footer-row {display: flex;gap: 20px;background-color: rgb(116, 116, 116);justify-content: space-between;padding: 40px;height: 200px;}
+
+.footer-row > div {flex: 1;border-radius: 6px;display: flex;flex-direction: column;}
+
+
+.box1 {background: rgba(211, 218, 211); height: 50%;}
+.box2 { background: rgb(211, 218, 211); }
+.box3 { background: rgba(211, 218, 211); }
+.box4 { background: rgba(211, 218, 255); }
+.box5 { background: rgba(211,218,211); height: 100px;margin-top: 50px;}
+
+.rounded{
+  border-radius: 5px;
+}
+
+
+.box2 .footer-box-1 {flex: 1;color: #fff;display: flex;align-items: center;justify-content: center;
+}
+
+.box2 .footer-box-2 {flex: 1;background: #fff;display: inline-block;align-items: center;justify-content: center;}
+.middle-container{background-color: rgb(115, 112, 112);height: 200px;width: 40%;margin-bottom: 100px;margin-top: 2px;position: absolute;top: 470px;padding: 20px;display: flex;justify-content: space-between;}
+.cotainer-box1{background-color: #edecec;width: 50%;display: flex;flex-direction: column;height: 100%;}
+.cotainer-box2{background-color: #ceccccff;height: 100px;width: 300px;margin-top: 50px;}
+     
+  </style>
+</head>
+<body>
+  <div class="main-container">
+    <div class="sidebar"></div>
+    <div class="content">
+      <div class="banner"></div>
+    <div class="boxes-container rounded">
+        <div class="three-boxes rounded">
+            <div class="box rounded"></div>
+            <div class="box rounded"></div>
+            <div class="box rounded"></div>
+        </div>
+        <div class="v-box rounded">
+            <div class="v-box-1 rounded"></div>
+            <div class="v-box-2 rounded"></div>
+        </div>
+        <div class="two-div rounded">
+            <div class="div-1 rounded"></div>
+            <div class="div-2 rounded"></div>
+        </div>
+    </div>
+    <div class="middle-container rounded">
+        <div class="cotainer-box1 rounded" style="border-radius: 5px;"></div>
+        <div class="cotainer-box2 rounded" style="border-radius: 5px;"></div>
+    </div>
+    <div class="footer-row rounded">
+        <div class="box1 rounded"></div>
+        <div class="box2 rounded">
+            <div class="footer-box-1 rounded"></div>
+            <div class="footer-box-2 rounded"></div>
+        </div>
+        <div class="box3 rounded"></div>
+        <div class="box4 rounded"></div>
+        <div class="box5 rounded"></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

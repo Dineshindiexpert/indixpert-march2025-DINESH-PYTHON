@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flex Task</title>
+  <style>
+    body {
+      margin: 0;
+    }
+
+    .main-container {
+      display: flex;              
+      min-height: 100vh;    
+      margin: 20px;   
+    }
+
+    .left-main-flex {
+      width: 20%;                 
+      background-color: #000;
+      color: #fff;
+      padding: 10px;
+      margin-right: 20px;
+    }
+
+    .right-main-flex {
+      flex: 1;                   
+      background-color: lightgray;
+      padding: 10px;
+    }
+
+    .banner {
+      background-color: yellow;
+      height: 200PX;  
+      width: 100%;
+      border-radius: 1%;
+    }
+    .minibx{
+      display: flex;
+      flex-direction: row;
+      ;
+      justify-content: space-evenly;
+    }
+    .box1{
+      background-color: #000;
+      height: 50px;
+      aspect-ratio: 1/1;
+    }
+    .box2{
+      height: 50px;
+      aspect-ratio: 1/1;
+      background-color: #000;
+    }
+    .box3{
+      background-color: #000;
+      height: 50px;
+      aspect-ratio:1/1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="main-container">
+      <div class="left-main-flex">
+        Left side content
+      </div>
+      <div class="right-main-flex">
+        <div class="banner">
+        </div>
+        <div class="minibx">
+            <div class="box1"></div>
+            <div class="box2"> </div>
+            <div class="box3"></div>
+        </div>
+      </div>
+    </div>
+  </main>
+</body>
+</html>
